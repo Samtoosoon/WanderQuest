@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign-Up, Sign-In and Trip Planner Pages</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Link to your external stylesheet -->
+    <style>
+        /* General Styles */
+        :root {
+            --bg-color: #f0f0f0; /* Default background color */
+            --text-color: #000000; /* Default text color */
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            margin: 0;
+            padding: 20px;
+            gap: 20px; /* Add gap between the containers */
+            transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+        }
+
+        .container {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 300px;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .profile-pic-container {
+            background-color: #87ceeb; /* Sky blue background */
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.5) 50%, transparent 50%, transparent 100%), radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.8) 3%, transparent 3%, transparent 100%);
+            border-radius: 10px 10px 0 0;
+            padding: 20px;
+        }
+
+        .profile-pic {
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            text-align: left;
+        }
+
+        input, select, .add-destination-button {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #263d3d;
+            color: #ffffff;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #3c4c73;
+        }
+
+        .sign-in-button {
+            background-color: #3c4c73;
+            color: #ffffff;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .content {
+            margin-top: 20px;
+        }
+
+        .create-trip-button {
+            background-color: #263d3d;
+            color: #ffffff;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .activities {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .activity-button {
+            background-color: #d4e157;
+            color: #000000;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .people-counter {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .counter-button {
+            background-color: #3c4c73;
+            color: #ffffff;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #people-count {
+            font-size: 16px;
+        }
+
+        .preferences {
+            padding: 20px;
+        }
+
+        .preferences h2 {
+            font-size: 24px;
+        }
+
+        .preferences p {
+            font-size: 16px;
+        }
+
+        .preferences label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        .preferences input[type="checkbox"],
+        .preferences input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        .survey {
+            margin: 20px 0;
+        }
+
+        .next {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        /* Styling for Map Sharing Section */
+        .map-section {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 100%; /* Adjust width as needed */
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .map-image {
+            max-width: 100%;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .share-button {
+            background-color: #263d3d;
+            color: #ffffff;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* Dark Mode Styles */
+        body.dark-mode {
+            --bg-color: #1f1f1f;
+            --text-color: #ffffff;
+        }
+
+        body.dark-mode .container {
+            background-color: #2a2a2a;
+            color: #ffffff;
+        }
+
+        body.dark-mode .profile-pic-container {
+            background-color: #1a365d;
+        }
+
+        body.dark-mode .sign-in-button,
+        body.dark-mode .create-trip-button,
+        body.dark-mode .activity-button,
+        body.dark-mode .counter-button,
+        body.dark-mode .share-button,
+        body.dark-mode .next {
+            background-color: #5e7e8b;
+        }
+
+        body.dark-mode .header {
+            background-color: #1a365d;
+        }
+
+        body.dark-mode .logo {
+            color: #ffffff;
+        }
+
+        body.dark-mode .map-section {
+            background-color: #2a2a2a;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Toggle Switch for Dark/Light Mode -->
+<div class="dark-mode-toggle">
+    <input type="checkbox" id="darkModeToggle">
+    <label for="darkModeToggle">Dark Mode</label>
+    <!-- Acute icon added for better UI -->
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+        <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+</div>
+
+<!-- Sign-Up Page -->
+<div class="container">
+    <h2>Sign-Up Page</h2>
+    <div class="profile-pic-container">
+        <img src="path/to/your/signup-image.jpg" alt="Profile Picture" class="profile-pic">
+    </div>
+    <form>
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" value="Sam">
+
+        <label for="email">Email Id</label>
+        <input type="email" id="email" name="email" value="Sami1234@gmail.com">
+
+        <label for="phone">Phone Number</label>
+        <input type="tel" id="phone" name="phone" value="+14987888999">
+
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" value="evFTbyWVcd">
+
+        <button type="submit">Update</button>
+    </form>
+</div>
+
+<!-- Sign-In Page -->
+<div class="container">
+    <h2>Sign-In Page</h2>
+    <div class="header">
+        <div class="logo">WanderQuest</div>
+        <button class="sign-in-button">Sign In</button>
+    </div>
+    <div class="content">
+        <img src="https://images.pexels.com/photos/3278215/pexels-photo-3278215.jpeg" alt="Travel" style="width: 100%;">
+        <h1>Your Next Journey, Optimized</h1>
+        <p>"Personalized Travel Itineraries Tailored to You. Experience the world your way with our precision-designed plans."</p>
+        <button class="create-trip-button">Create a New Trip</button>
+    </div>
+</div>
+
+<!-- Trip Planner Page -->
+<div class="container">
+    <h2>Plan Your Next Travel Adventure</h2>
+    <form>
+        <label for="city">Where do you want to go?</label>
+        <select id="city" name="city">
+            <option value="">Select a city</option>
+            <option value="delhi">Delhi</option>
+            <option value="mumbai">Mumbai</option>
+            <option value="kasol">Kasol</option>
+        </select>
+
+        <label for="dates">Select dates</label>
+        <input type="date" id="dates" name="dates">
+
+        <button type="button" class="add-destination-button">Add destination</button>
+
+        <label>Select the kind of activities you wish to do</label>
+        <div class="activities">
+            <button type="button" class="activity-button">Shopping</button>
+            <button type="button" class="activity-button">Art & Cultural</button>
+            <!-- Add more activity buttons here -->
+        </div>
+
+        <label for="people">How many people are going?</label>
+        <div class="people-counter">
+            <button type="button" class="counter-button" id="decrease">-</button>
+            <span id="people-count">1</span> Person
+            <button type="button" class="counter-button" id="increase">+</button>
+        </div>
+    </form>
+</div>
+
+<!-- Map Sharing Section -->
+<div class="map-section">
+    <h2>Share Your Personalized Map</h2>
+    <img src="https://thehungryjpeg.com/product/3500424-travel-landmarks-on-world-map-vector-illustration" alt="Personalized Map" class="map-image">
+    <div>
+        <button class="share-button">Share</button>
+        <button class="update-map-button">Update Your Map</button>
+    </div>
+</div>
+
+<!-- JavaScript for Update Your Map button -->
+<script>
+    const updateMapButton = document.querySelector('.update-map-button');
+
+    updateMapButton.addEventListener('click', () => {
+        console.log('Updating your map...');
+        // Add your logic to update the map here
+    });
+</script>
+
+<style>
+    .map-section {
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        width: 100%;
+        text-align: center;
+        margin: 20px 0;
+    }
+
+    .map-image {
+        max-width: 100%;
+        border-radius: 10px;
+        margin-bottom: 10px;
+    }
+
+    .share-button {
+        background-color: #263d3d;
+        color: #ffffff;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-right: 10px;
+    }
+
+    .update-map-button {
+        background-color: #263d3d;
+        color: #ffffff;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .update-map-button:hover {
+        background-color: #1a1a1a; /* darker shade for hover effect */
+    }
+</style>
+
+<!-- Food Preferences Section (Integrated) -->
+<section class="preferences">
+    <h2>FOOD PREFERENCES</h2>
+    <p>Select the meals you would like to include in your trip, your budget for it, and the type of food you prefer.</p>
+    <label for="budget">Budget level</label>
+    <input type="range" id="budget" name="budget" min="1" max="3" step="1">
+    <div>
+        <input type="checkbox" id="breakfast" name="meal" value="breakfast">
+        <label for="breakfast">Breakfast</label>
+        <input type="checkbox" id="lunch" name="meal" value="lunch">
+        <label for="lunch">Lunch</label>
+        <input type="checkbox" id="dinner" name="meal" value="dinner">
+        <label for="dinner">Dinner</label>
+    </div>
+    <div>
+        <input type="radio" id="everything" name="food_type" value="everything">
+        <label for="everything">Everything</label>
+        <input type="radio" id="vegetarian" name="food_type" value="vegetarian">
+        <label for="vegetarian">Vegetarian</label>
+        <input type="radio" id="vegan" name="food_type" value="vegan">
+        <label for="vegan">Vegan</label>
+    </div>
+    <div class="survey">
+        <p>How likely are you to recommend us to family and friends?</p>
+        <input type="radio" name="recommend" value="1"> 1
+        <input type="radio" name="recommend" value="2"> 2
+        <input type="radio" name="recommend" value="3"> 3
+        <input type="radio" name="recommend" value="4"> 4
+        <input type="radio" name="recommend" value="5"> 5
+        <input type="radio" name="recommend" value="6"> 6
+        <input type="radio" name="recommend" value="7"> 7
+        <input type="radio" name="recommend" value="8"> 8
+        <input type="radio" name="recommend" value="9"> 9
+        <input type="radio" name="recommend" value="10"> 10
+    </div>
+    <button class="next">Next</button>
+</section>
+
+<!-- JavaScript for Dark Mode Toggle -->
+<script>
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    const body = document.body;
+
+    darkModeToggle.addEventListener('change', () => {
+        body.classList.toggle('dark-mode');
+    });
+</script>
+
+</body>
+</html>

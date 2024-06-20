@@ -17,3 +17,6 @@ https://www.figma.com/design/eDUsGmVboVMCUcESfcAgb5/Untitled?node-id=0-1&t=xQZuE
 
 ## Related Research:
 https://www.morganstanley.com/ideas/generative-ai-travel
+
+## Github Link:
+https://samtoosoon.github.io/WanderQuest/
